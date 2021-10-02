@@ -42,11 +42,21 @@
 }
 
 .navigation-rectangles-container {
-  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 50px;
   height: 50px;
-  width: 200px;
   margin: auto;
   margin-top: 100px;
+  background-color: black;
+}
+
+.navigation-rect {
+  height: 15px;
+  width: 150px;
+  background-color: #c4c4c4;
 }
 
 .img-container {
