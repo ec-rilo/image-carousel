@@ -1,0 +1,56 @@
+.bg {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
+.bg > div:nth-child(1) {
+  height: 50vh;
+  background-color: #0083ff;
+}
+
+.carousel-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.carousel-content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #c4c4c4;
+  height: 989px;
+  width: 2300px;
+}
+
+.right-arrow {
+  margin-left: 50px;
+}
+
+.left-arrow {
+  margin-right: 50px;
+}
+
+.arrow-container {
+  background-color: black;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+}
+
+.navigation-rectangles-container {
+  background-color: black;
+  height: 50px;
+  width: 200px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.img-container {
+  background-color: red;
+  height: 989px;
+  width: 1760px;
+}
