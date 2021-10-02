@@ -1,0 +1,32 @@
+{
+  "name": "image-carousel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ec-rilo/image-carousel.git"
+  },
+  "author": "Edgar Carrillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ec-rilo/image-carousel/issues"
+  },
+  "homepage": "https://github.com/ec-rilo/image-carousel#readme",
+  "devDependencies": {
+    "css-loader": "^6.3.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "prettier": "2.4.1",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.56.0",
+    "webpack-cli": "^4.8.0"
+  }
+}
