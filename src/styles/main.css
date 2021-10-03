@@ -21,7 +21,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #c4c4c4;
   height: 989px;
   width: 2300px;
 }
@@ -35,10 +34,11 @@
 }
 
 .arrow-container {
-  background-color: black;
+  background-color: #c4c4c4;
   height: 100px;
   width: 100px;
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .navigation-rectangles-container {
@@ -50,17 +50,23 @@
   height: 50px;
   margin: auto;
   margin-top: 100px;
-  background-color: black;
 }
 
 .navigation-rect {
   height: 15px;
   width: 150px;
   background-color: #c4c4c4;
+  cursor: pointer;
 }
 
 .img-container {
   background-color: red;
   height: 989px;
   width: 1760px;
+}
+
+.curr-img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
