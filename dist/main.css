@@ -196,15 +196,51 @@ table {
 }
 
 .img-container {
-  background-color: red;
+  position: relative;
+  overflow: hidden;
   height: 989px;
   width: 1760px;
 }
 
-.curr-img {
+.new-img {
+  right: 100%;
+}
+
+.program-img {
+  position: absolute;
   object-fit: cover;
   height: 100%;
   width: 100%;
+}
+
+@keyframes scroll-out {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes scroll-in {
+  0% {
+    right: 100%;
+  }
+
+  100% {
+    right: 0;
+  }
+}
+
+.exiting-img-anim {
+  animation: scroll-out 2s;
+  animation-fill-mode: forwards;
+}
+
+.entering-img-anim {
+  animation: scroll-in 2s;
+  animation-fill-mode: forwards;
 }
 
 
