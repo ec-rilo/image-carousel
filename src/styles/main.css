@@ -98,11 +98,11 @@
 }
 
 .exiting-img-anim {
-  animation: scroll-out 2s;
+  animation: scroll-out 1s;
   animation-fill-mode: forwards;
 }
 
 .entering-img-anim {
-  animation: scroll-in 2s;
+  animation: scroll-in 1s;
   animation-fill-mode: forwards;
 }
