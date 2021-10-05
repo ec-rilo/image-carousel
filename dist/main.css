@@ -213,7 +213,7 @@ table {
   width: 100%;
 }
 
-@keyframes scroll-out {
+@keyframes scroll-out-right {
   0% {
     left: 0;
   }
@@ -223,7 +223,17 @@ table {
   }
 }
 
-@keyframes scroll-in {
+@keyframes scroll-out-left {
+  0% {
+    right: 0;
+  }
+
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes scroll-in-from-left {
   0% {
     right: 100%;
   }
@@ -233,13 +243,33 @@ table {
   }
 }
 
-.exiting-img-anim {
-  animation: scroll-out 1s;
+@keyframes scroll-in-from-right {
+  0% {
+    left: 100%;
+  }
+
+  100% {
+    left: 0;
+  }
+}
+
+.exiting-img-anim-next-btn {
+  animation: scroll-out-right 1s;
   animation-fill-mode: forwards;
 }
 
-.entering-img-anim {
-  animation: scroll-in 1s;
+.entering-img-anim-next-btn {
+  animation: scroll-in-from-left 1s;
+  animation-fill-mode: forwards;
+}
+
+.exiting-img-anim-prev-btn {
+  animation: scroll-out-left 1s;
+  animation-fill-mode: forwards;
+}
+
+.entering-img-anim-prev-btn {
+  animation: scroll-in-from-right 1s;
   animation-fill-mode: forwards;
 }
 

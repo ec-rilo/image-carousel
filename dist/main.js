@@ -51,66 +51,37 @@ const carouselLogic = (() => {
   const img4 = document.querySelector(".img-4");
   const img5 = document.querySelector(".img-5");
 
-  // class ProgramImg {
-  //   constructor(currImg, imgTag) {
-  //     this.currImg = currImg;
-  //     this.imgTag = imgTag;
-  //   }
-
-  //   applyToHTML() {
-  //     this.imgTag.setAttribute("src", `${this.currImg}`);
-  //   }
-
-  //   applyEnteringImgAnim() {
-  //     if (this.imgTag.classList.contains("exiting-img-anim")) {
-  //       this.imgTag.classList.remove("exiting-img-anim");
-  //     }
-  //     this.imgTag.classList.add("entering-img-anim");
-  //   }
-
-  //   applyExitingImgAnim() {
-  //     if (this.imgTag.classList.contains("entering-img-anim")) {
-  //       this.imgTag.classList.remove("entering-img-anim");
-  //     }
-  //     this.imgTag.classList.add("exiting-img-anim");
-  //   }
-
-  //   updateImg(newImg) {
-  //     this.imgTag.setAttribute("src", `${newImg}`);
-  //   }
-
-  //   getTag() {
-  //     return this.imgTag;
-  //   }
-  // }
-
   class ProgramImg {
     constructor(imgTag) {
       this.imgTag = imgTag;
     }
 
-    applyEnteringImgAnim() {
-      if (this.imgTag.classList.contains("exiting-img-anim")) {
-        this.imgTag.classList.remove("exiting-img-anim");
+    applyEnteringImgAnimNextBtn() {
+      if (this.imgTag.classList.contains("exiting-img-anim-next-btn")) {
+        this.imgTag.classList.remove("exiting-img-anim-next-btn");
       }
-      this.imgTag.classList.add("entering-img-anim");
+      this.imgTag.classList.add("entering-img-anim-next-btn");
     }
 
-    applyExitingImgAnim() {
-      if (this.imgTag.classList.contains("entering-img-anim")) {
-        this.imgTag.classList.remove("entering-img-anim");
+    applyExitingImgAnimNextBtn() {
+      if (this.imgTag.classList.contains("entering-img-anim-next-btn")) {
+        this.imgTag.classList.remove("entering-img-anim-next-btn");
       }
-      this.imgTag.classList.add("exiting-img-anim");
+      this.imgTag.classList.add("exiting-img-anim-next-btn");
     }
 
-    getTag() {
-      return this.imgTag;
+    applyExitingImgAnimPrevBtn() {
+      if (this.imgTag.classList.contains("entering-img-anim-prev-btn")) {
+        this.imgTag.classList.remove("entering-img-anim-prev-btn");
+      }
+      this.imgTag.classList.add("exiting-img-anim-prev-btn");
     }
 
-    get2ndClass(element) {
-      return element && element.classList.length > 1
-        ? this.imgTag.classList[1]
-        : null;
+    applyEnteringImgAnimPrevBtn() {
+      if (this.imgTag.classList.contains("exiting-img-anim-prev-btn")) {
+        this.imgTag.classList.remove("exiting-img-anim-prev-btn");
+      }
+      this.imgTag.classList.add("entering-img-anim-prev-btn");
     }
 
     setDefaultClasses() {
@@ -173,54 +144,109 @@ const carouselLogic = (() => {
     }, 5000);
   }
 
-  function nextImgBtnLogic(imgArr) {
+  const btnLogic = (() => {
     const nextBtn = document.querySelector(".right-arrow");
+    const prevBtn = document.querySelector(".left-arrow");
     const imgContainer = document.querySelector(".img-container");
-
     let count = 0;
-    nextBtn.addEventListener("click", () => {
-      const currImg = document.querySelector(".curr-img");
-      const currImgItem = new ProgramImg(currImg);
-      let newImg;
-      let newImgItem;
-      currImgItem.applyExitingImgAnim();
-      currImg.addEventListener("animationend", () => {
-        currImgItem.setDefaultClasses();
-        currImgItem.addClass("new-img");
-      });
-      if (count === imgArr.length - 1) {
-        newImg = imgContainer.firstChild.nextSibling;
-        newImg.classList.add("curr-img");
-        newImgItem = new ProgramImg(newImg);
-        newImgItem.applyEnteringImgAnim();
-        newImg.addEventListener("animationend", () => {
-          newImgItem.setDefaultClasses();
-          newImgItem.addClass("curr-img");
-          count = 1;
-        });
-      } else {
-        newImg = currImg.nextSibling.nextSibling;
-        newImgItem = new ProgramImg(newImg);
-        newImgItem.applyEnteringImgAnim();
-        newImg.addEventListener("animationend", () => {
-          newImgItem.setDefaultClasses();
-          newImgItem.addClass("curr-img");
-        });
-      }
-      count += 1;
-    });
-  }
 
-  function prevImgBtnLogic() {
-    // logic for the previous button that cycles to the previous image.
-  }
+    function disableBtns() {
+      nextBtn.style.pointerEvents = "none";
+      prevBtn.style.pointerEvents = "none";
+    }
+
+    function enableBtns() {
+      nextBtn.style.pointerEvents = "auto";
+      prevBtn.style.pointerEvents = "auto";
+    }
+
+    function nextImgBtnLogic(imgArr) {
+      nextBtn.addEventListener("click", () => {
+        disableBtns(nextBtn, prevBtn);
+        const currImg = document.querySelector(".curr-img");
+        const currImgItem = new ProgramImg(currImg);
+
+        let newImg;
+        let newImgItem;
+        currImgItem.applyExitingImgAnimNextBtn();
+        currImg.addEventListener("animationend", () => {
+          currImgItem.setDefaultClasses();
+          currImgItem.addClass("new-img");
+        });
+        if (count === imgArr.length - 1) {
+          newImg = imgContainer.firstChild.nextSibling;
+          newImg.classList.add("curr-img");
+          newImgItem = new ProgramImg(newImg);
+          newImgItem.applyEnteringImgAnimNextBtn();
+          newImg.addEventListener("animationend", () => {
+            enableBtns();
+            newImgItem.setDefaultClasses();
+            newImgItem.addClass("curr-img");
+          });
+          count = -1;
+        } else {
+          newImg = currImg.nextSibling.nextSibling;
+          newImgItem = new ProgramImg(newImg);
+          newImgItem.applyEnteringImgAnimNextBtn();
+          newImg.addEventListener("animationend", () => {
+            enableBtns();
+            newImgItem.setDefaultClasses();
+            newImgItem.addClass("curr-img");
+          });
+        }
+        count += 1;
+      });
+    }
+
+    function prevImgBtnLogic(imgArr) {
+      prevBtn.addEventListener("click", () => {
+        disableBtns();
+        const currImg = document.querySelector(".curr-img");
+        const currImgItem = new ProgramImg(currImg);
+        let newImg;
+        let newImgItem;
+        currImgItem.applyExitingImgAnimPrevBtn();
+        currImg.addEventListener("animationend", () => {
+          currImgItem.setDefaultClasses();
+          currImgItem.addClass("new-img");
+        });
+        if (count === 0) {
+          newImg = imgContainer.lastChild.previousSibling;
+          newImg.classList.add("curr-img");
+          newImgItem = new ProgramImg(newImg);
+          newImgItem.applyEnteringImgAnimPrevBtn();
+          newImg.addEventListener("animationend", () => {
+            enableBtns();
+            newImgItem.setDefaultClasses();
+            newImgItem.addClass("curr-img");
+          });
+          count = imgArr.length;
+        } else {
+          newImg = currImg.previousSibling.previousSibling;
+          newImgItem = new ProgramImg(newImg);
+          newImgItem.applyEnteringImgAnimPrevBtn();
+          newImg.addEventListener("animationend", () => {
+            enableBtns();
+            newImgItem.setDefaultClasses();
+            newImgItem.addClass("curr-img");
+          });
+        }
+        count -= 1;
+      });
+    }
+
+    return {
+      nextImgBtnLogic,
+      prevImgBtnLogic,
+    };
+  })();
 
   const imgArr = [img1, img2, img3, img4, img5];
 
   // initImgRotation(imgArr);
   populateNavigationRects(imgArr);
-  nextImgBtnLogic(imgArr);
-  // prevImgBtnLogic();
+  btnLogic.nextImgBtnLogic(imgArr);
+  btnLogic.prevImgBtnLogic(imgArr);
   // initNavRectLogic();
 })();
 
