@@ -162,8 +162,8 @@ table {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 989px;
-  width: 2300px;
+  height: 65vh;
+  width: 100vw;
 }
 
 .right-arrow {
@@ -264,22 +264,22 @@ table {
 }
 
 .exiting-img-anim-next-btn {
-  animation: scroll-out-right 1s;
-  animation-fill-mode: forwards;
-}
-
-.entering-img-anim-next-btn {
-  animation: scroll-in-from-left 1s;
-  animation-fill-mode: forwards;
-}
-
-.exiting-img-anim-prev-btn {
   animation: scroll-out-left 1s;
   animation-fill-mode: forwards;
 }
 
-.entering-img-anim-prev-btn {
+.entering-img-anim-next-btn {
   animation: scroll-in-from-right 1s;
+  animation-fill-mode: forwards;
+}
+
+.exiting-img-anim-prev-btn {
+  animation: scroll-out-right 1s;
+  animation-fill-mode: forwards;
+}
+
+.entering-img-anim-prev-btn {
+  animation: scroll-in-from-left 1s;
   animation-fill-mode: forwards;
 }
 
