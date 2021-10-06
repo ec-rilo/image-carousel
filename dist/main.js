@@ -94,55 +94,33 @@ const carouselLogic = (() => {
     }
   }
 
-  function populateNavigationRects(imgArr) {
-    const navRectContainer = document.querySelector(
-      ".navigation-rectangles-container"
-    );
-    const numOfImgs = imgArr.length;
-    for (let i = 0; i < numOfImgs; ++i) {
-      const currNavRect = document.createElement("div");
-      currNavRect.classList.add("navigation-rect");
-      navRectContainer.appendChild(currNavRect);
-    }
-  }
+  // function initImgRotation(imgArr) {
+  //   let currImg = new ProgramImg(
+  //     imgArr[0],
+  //     document.querySelector(".curr-img")
+  //   );
+  //   currImg.applyToHTML();
 
-  function initNavRectLogic() {
-    const navRectContainer = document.querySelector(
-      ".navigation-rectangles-container"
-    );
-    const navRectChildren = navRectContainer.childNodes;
-    navRectChildren.forEach((rectChild) => {
-      // If the current child is clicked rotate to that image
-    });
-  }
-
-  function initImgRotation(imgArr) {
-    let currImg = new ProgramImg(
-      imgArr[0],
-      document.querySelector(".curr-img")
-    );
-    currImg.applyToHTML();
-
-    let count = 0;
-    setInterval(() => {
-      if (count === imgArr.length - 1) {
-        // Made as -1 so that when the loop restarts the count
-        // starts at 0 and not 1.
-        count = -1;
-      }
-      count += 1;
-      const updatedImgTag = document.createElement("img");
-      updatedImgTag.classList.add("program-img");
-      updatedImgTag.classList.add("new-img");
-      updatedImgTag.setAttribute("src", `${imgArr[count]}`);
-      const newImg = new ProgramImg(imgArr[count], updatedImgTag);
-      const imgContainer = document.querySelector(".img-container");
-      imgContainer.appendChild(updatedImgTag);
-      currImg.applyExitingImgAnim();
-      newImg.applyEnteringImgAnim();
-      currImg = newImg;
-    }, 5000);
-  }
+  //   let count = 0;
+  //   setInterval(() => {
+  //     if (count === imgArr.length - 1) {
+  //       // Made as -1 so that when the loop restarts the count
+  //       // starts at 0 and not 1.
+  //       count = -1;
+  //     }
+  //     count += 1;
+  //     const updatedImgTag = document.createElement("img");
+  //     updatedImgTag.classList.add("program-img");
+  //     updatedImgTag.classList.add("new-img");
+  //     updatedImgTag.setAttribute("src", `${imgArr[count]}`);
+  //     const newImg = new ProgramImg(imgArr[count], updatedImgTag);
+  //     const imgContainer = document.querySelector(".img-container");
+  //     imgContainer.appendChild(updatedImgTag);
+  //     currImg.applyExitingImgAnim();
+  //     newImg.applyEnteringImgAnim();
+  //     currImg = newImg;
+  //   }, 5000);
+  // }
 
   const btnLogic = (() => {
     const nextBtn = document.querySelector(".right-arrow");
@@ -160,8 +138,61 @@ const carouselLogic = (() => {
       prevBtn.style.pointerEvents = "auto";
     }
 
+    function styleCurrNavRect() {
+      const navRectContainer = document.querySelector(
+        ".navigation-rectangles-container"
+      );
+      const navRectsArr = [...navRectContainer.children];
+
+      navRectsArr.forEach((rect) => {
+        if (rect.classList.contains(`nav-rect-${count}`)) {
+          rect.classList.add("curr-nav-rect");
+        } else if (count === imgArr.length) {
+          rect.classList.add("curr-nav-rect");
+        } else if (count === "undefined") {
+          navRectsArr[0].classList.add("curr-nav-rect");
+        } else {
+          rect.classList.remove("curr-nav-rect");
+        }
+      });
+    }
+
+    function populateNavigationRects(imgArr) {
+      const navRectContainer = document.querySelector(
+        ".navigation-rectangles-container"
+      );
+
+      const numOfImgs = imgArr.length;
+      for (let i = 0; i < numOfImgs; ++i) {
+        const currNavRect = document.createElement("div");
+        currNavRect.classList.add("navigation-rect");
+        currNavRect.classList.add(`nav-rect-${i}`);
+        navRectContainer.appendChild(currNavRect);
+      }
+      styleCurrNavRect();
+    }
+
+    // function goToImg() {
+    //   const navRectContainer = document.querySelector(
+    //     ".navigation-rectangles-container"
+    //   );
+    //   const navRectsArr = [...navRectContainer.children];
+
+    //   navRectsArr.forEach((rect) => {
+    //     rect.addEventListener("click", () => {
+    //       // Button logic that will allow the user to
+    //       // click on a rect to go to that image.
+    //     });
+    //   });
+    // }
+
+    function initNavRectLogic(imgArr) {
+      populateNavigationRects(imgArr);
+    }
+
     function nextImgBtnLogic(imgArr) {
       nextBtn.addEventListener("click", () => {
+        count += 1;
         disableBtns(nextBtn, prevBtn);
         const currImg = document.querySelector(".curr-img");
         const currImgItem = new ProgramImg(currImg);
@@ -173,7 +204,7 @@ const carouselLogic = (() => {
           currImgItem.setDefaultClasses();
           currImgItem.addClass("new-img");
         });
-        if (count === imgArr.length - 1) {
+        if (count === imgArr.length) {
           newImg = imgContainer.firstChild.nextSibling;
           newImg.classList.add("curr-img");
           newImgItem = new ProgramImg(newImg);
@@ -183,7 +214,7 @@ const carouselLogic = (() => {
             newImgItem.setDefaultClasses();
             newImgItem.addClass("curr-img");
           });
-          count = -1;
+          count = 0;
         } else {
           newImg = currImg.nextSibling.nextSibling;
           newImgItem = new ProgramImg(newImg);
@@ -194,12 +225,13 @@ const carouselLogic = (() => {
             newImgItem.addClass("curr-img");
           });
         }
-        count += 1;
+        styleCurrNavRect();
       });
     }
 
     function prevImgBtnLogic(imgArr) {
       prevBtn.addEventListener("click", () => {
+        count -= 1;
         disableBtns();
         const currImg = document.querySelector(".curr-img");
         const currImgItem = new ProgramImg(currImg);
@@ -210,7 +242,7 @@ const carouselLogic = (() => {
           currImgItem.setDefaultClasses();
           currImgItem.addClass("new-img");
         });
-        if (count === 0) {
+        if (count === -1) {
           newImg = imgContainer.lastChild.previousSibling;
           newImg.classList.add("curr-img");
           newImgItem = new ProgramImg(newImg);
@@ -220,7 +252,7 @@ const carouselLogic = (() => {
             newImgItem.setDefaultClasses();
             newImgItem.addClass("curr-img");
           });
-          count = imgArr.length;
+          count = imgArr.length - 1;
         } else {
           newImg = currImg.previousSibling.previousSibling;
           newImgItem = new ProgramImg(newImg);
@@ -231,20 +263,21 @@ const carouselLogic = (() => {
             newImgItem.addClass("curr-img");
           });
         }
-        count -= 1;
+        styleCurrNavRect();
       });
     }
 
     return {
       nextImgBtnLogic,
       prevImgBtnLogic,
+      initNavRectLogic,
     };
   })();
 
   const imgArr = [img1, img2, img3, img4, img5];
 
   // initImgRotation(imgArr);
-  populateNavigationRects(imgArr);
+  btnLogic.initNavRectLogic(imgArr);
   btnLogic.nextImgBtnLogic(imgArr);
   btnLogic.prevImgBtnLogic(imgArr);
   // initNavRectLogic();

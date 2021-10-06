@@ -134,6 +134,11 @@ table {
 /*!***********************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./src/styles/main.css ***!
   \***********************************************************************/
+:root {
+  --curr-nav-rect: #868686;
+  --default-nav-rect: #c4c4c4;
+}
+
 .bg {
   position: absolute;
   height: 100vh;
@@ -191,8 +196,12 @@ table {
 .navigation-rect {
   height: 15px;
   width: 150px;
-  background-color: #c4c4c4;
+  background-color: var(--default-nav-rect);
   cursor: pointer;
+}
+
+.curr-nav-rect {
+  background-color: var(--curr-nav-rect);
 }
 
 .img-container {
