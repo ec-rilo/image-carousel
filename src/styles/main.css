@@ -55,6 +55,7 @@
   height: 50px;
   margin: auto;
   margin-top: 100px;
+  width: 60vw;
 }
 
 .navigation-rect {
@@ -71,8 +72,8 @@
 .img-container {
   position: relative;
   overflow: hidden;
-  height: 989px;
-  width: 1760px;
+  height: 65vh;
+  width: 65vw;
 }
 
 .new-img {
