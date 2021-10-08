@@ -181,6 +181,7 @@ table {
 .arrow-img {
   width: 40%;
   height: 40%;
+  user-select: none;
 }
 
 .arrow-container {
@@ -234,6 +235,7 @@ table {
   object-fit: cover;
   height: 100%;
   width: 100%;
+  user-select: none;
 }
 
 @keyframes scroll-out-right {
