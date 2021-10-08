@@ -166,15 +166,27 @@ table {
   width: 100vw;
 }
 
-.right-arrow {
-  margin-left: 50px;
+.rotateimg180 {
+  transform: rotate(180deg);
 }
 
 .left-arrow {
   margin-right: 50px;
 }
 
+.right-arrow {
+  margin-left: 50px;
+}
+
+.arrow-img {
+  width: 40%;
+  height: 40%;
+}
+
 .arrow-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #c4c4c4;
   height: 100px;
   width: 100px;
