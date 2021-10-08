@@ -1,14 +1,3 @@
-// Create a function that allows a img to go left
-// create a function that allows a img to go right
-// create a function that allows the little navigation rectangles to populate depending on amount of images
-// create a function that gives the little navigtion rectangles logic
-
-// import img1 from "../images/carousel-imgs/img-1.jpeg";
-// import img2 from "../images/carousel-imgs/img-2.jpeg";
-// import img3 from "../images/carousel-imgs/img-3.jpeg";
-// import img4 from "../images/carousel-imgs/img-4.jpeg";
-// import img5 from "../images/carousel-imgs/img-5.jpeg";
-
 const carouselLogic = (() => {
   const img1 = document.querySelector(".img-1");
   const img2 = document.querySelector(".img-2");
@@ -72,34 +61,6 @@ const carouselLogic = (() => {
       this.imgTag.classList.add(className);
     }
   }
-
-  // function initImgRotation(imgArr) {
-  //   let currImg = new ProgramImg(
-  //     imgArr[0],
-  //     document.querySelector(".curr-img")
-  //   );
-  //   currImg.applyToHTML();
-
-  //   let count = 0;
-  //   setInterval(() => {
-  //     if (count === imgArr.length - 1) {
-  //       // Made as -1 so that when the loop restarts the count
-  //       // starts at 0 and not 1.
-  //       count = -1;
-  //     }
-  //     count += 1;
-  //     const updatedImgTag = document.createElement("img");
-  //     updatedImgTag.classList.add("program-img");
-  //     updatedImgTag.classList.add("new-img");
-  //     updatedImgTag.setAttribute("src", `${imgArr[count]}`);
-  //     const newImg = new ProgramImg(imgArr[count], updatedImgTag);
-  //     const imgContainer = document.querySelector(".img-container");
-  //     imgContainer.appendChild(updatedImgTag);
-  //     currImg.applyExitingImgAnim();
-  //     newImg.applyEnteringImgAnim();
-  //     currImg = newImg;
-  //   }, 5000);
-  // }
 
   const btnLogic = (() => {
     const nextBtn = document.querySelector(".right-arrow");
@@ -296,16 +257,44 @@ const carouselLogic = (() => {
       });
     }
 
+    function initImgRotation(imgArr) {
+      const imgRotationLogic = {
+        startRotation: function startRotation() {
+          this.imageRotation = setInterval(() => {
+            goToNextImg(imgArr);
+          }, 5000);
+        },
+
+        restartTimer: function restartTimer() {
+          clearInterval(this.imageRotation);
+        },
+
+        startLogic: () => {
+          imgRotationLogic.restartTimer();
+          imgRotationLogic.startRotation();
+        },
+      };
+      imgRotationLogic.startRotation();
+      document.addEventListener("click", () => {
+        imgRotationLogic.startLogic();
+      });
+      document.addEventListener("keydown", () => {
+        imgRotationLogic.startLogic();
+      });
+    }
+
     return {
       nextImgBtnLogic,
       prevImgBtnLogic,
       initNavRectLogic,
       goToClickedImg,
+      initImgRotation,
     };
   })();
 
   function initBtnLogic(imgArr) {
     btnLogic.initNavRectLogic(imgArr);
+    btnLogic.initImgRotation(imgArr);
     btnLogic.nextImgBtnLogic(imgArr);
     btnLogic.prevImgBtnLogic(imgArr);
     btnLogic.goToClickedImg();
@@ -314,7 +303,4 @@ const carouselLogic = (() => {
   const imgArr = [img1, img2, img3, img4, img5];
 
   initBtnLogic(imgArr);
-  // initImgRotation(imgArr);
-
-  // initNavRectLogic();
 })();
