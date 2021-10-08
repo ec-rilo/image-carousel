@@ -210,6 +210,7 @@ table {
   overflow: hidden;
   height: 65vh;
   width: 65vw;
+  background-color: black;
 }
 
 .new-img {
@@ -263,6 +264,34 @@ table {
   }
 }
 
+@keyframes img-appear {
+  0% {
+    opacity: 0;
+    left: 0;
+    right: 0;
+  }
+
+  100% {
+    opacity: 1;
+    left: 0;
+    right: 0;
+  }
+}
+
+@keyframes img-disappear {
+  0% {
+    opacity: 1;
+    left: 0;
+    right: 0;
+  }
+
+  100% {
+    opacity: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
 .exiting-img-anim-next-btn {
   animation: scroll-out-left 1s;
   animation-fill-mode: forwards;
@@ -280,6 +309,16 @@ table {
 
 .entering-img-anim-prev-btn {
   animation: scroll-in-from-left 1s;
+  animation-fill-mode: forwards;
+}
+
+.exiting-img-anim-disappear-btn {
+  animation: img-disappear 1s;
+  animation-fill-mode: forwards;
+}
+
+.entering-img-anim-appear-btn {
+  animation: img-appear 1s;
   animation-fill-mode: forwards;
 }
 
